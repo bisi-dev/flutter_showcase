@@ -44,15 +44,19 @@ class SimpleTemplate extends Template {
       return Scaffold(
         backgroundColor: data.theme.backgroundColor,
         body: Layout(
-          child: Builder(
-            builder: (context) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 40),
-              child: Material(
-                color: Colors.transparent,
-                child: Row(
+          child: FluidMargin(
+            maxWidth: MediaQuery.of(context).size.width - 160,
+            child: Builder(
+              builder: (context) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Material(
+                  color: Colors.transparent,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: children),
+                    children: children,
+                  ),
+                ),
               ),
             ),
           ),
@@ -193,10 +197,25 @@ class _Link extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColor = theme.buttonTheme.colorScheme?.background ?? Colors.white;
+
     return FittedBox(
       child: ButtonTheme.fromButtonThemeData(
         data: theme.buttonTheme,
         child: ElevatedButton(
+          style: ButtonStyle(
+            // padding: MaterialStatePropertyAll(theme.buttonTheme.padding),
+            backgroundColor: MaterialStateProperty.resolveWith(
+              (states) => states.contains(MaterialState.pressed)
+                  ? appColor.withOpacity(0.5)
+                  : appColor,
+            ),
+            padding: MaterialStateProperty.resolveWith(
+              (states) => states.contains(MaterialState.hovered)
+                  ? EdgeInsets.all(theme.buttonTheme.padding.vertical / 2 + 4)
+                  : theme.buttonTheme.padding,
+            ),
+          ),
           onPressed: () => {launch(data.url)},
           child: IconTheme(
             data: theme.buttonIconTheme.merge(IconThemeData(size: 20)),

@@ -110,7 +110,7 @@ class _StatusBar extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(left: 30, top: 4),
               child: Text(
-                '${date.hour}:${date.minute}',
+                '${date.hour.toString().length <= 1 ? '0' : ''}${date.hour} : ${date.minute.toString().length <= 1 ? '0' : ''}${date.minute}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: theme.statusBarColor),
               )),
