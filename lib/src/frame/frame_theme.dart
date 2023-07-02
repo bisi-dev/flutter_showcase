@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Defines the theme of the device frame
@@ -15,7 +14,7 @@ class FrameThemeData implements Equatable {
   final Brightness statusBarBrightness;
 
   // const FrameThemeData({this.frameColor, this.statusBarBrightness});
-  factory FrameThemeData({Color frameColor, Brightness statusBarBrightness}) {
+  factory FrameThemeData({Color? frameColor, Brightness? statusBarBrightness}) {
     frameColor ??= Colors.black;
     statusBarBrightness ??= Brightness.light;
     return FrameThemeData.raw(
@@ -25,10 +24,9 @@ class FrameThemeData implements Equatable {
   }
 
   const FrameThemeData.raw({
-    this.frameColor,
-    this.statusBarBrightness,
-  })  : assert(frameColor != null),
-        assert(statusBarBrightness != null);
+    required this.frameColor,
+    required this.statusBarBrightness,
+  });
 
   @override
   List<Object> get props => [frameColor, statusBarBrightness];
@@ -44,17 +42,18 @@ class DefaultFrameTheme extends InheritedTheme {
   final FrameThemeData data;
 
   DefaultFrameTheme({
-    Key key,
-    this.data,
-    @required Widget child,
+    Key? key,
+    required this.data,
+    required Widget child,
   }) : super(key: key, child: child);
 
   static DefaultFrameTheme of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<DefaultFrameTheme>() ??
-        DefaultFrameTheme.fallback();
+        DefaultFrameTheme(
+          data: FrameThemeData(),
+          child: SizedBox(),
+        );
   }
-
-  DefaultFrameTheme.fallback() : data = FrameThemeData();
 
   @override
   bool updateShouldNotify(DefaultFrameTheme oldWidget) {
@@ -63,7 +62,7 @@ class DefaultFrameTheme extends InheritedTheme {
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    final DefaultFrameTheme defaultSpacing =
+    final DefaultFrameTheme? defaultSpacing =
         context.findAncestorWidgetOfExactType<DefaultFrameTheme>();
     return identical(this, defaultSpacing)
         ? child

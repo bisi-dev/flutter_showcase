@@ -12,11 +12,11 @@ class TemplateData {
   final LinkData logoLink;
 
   TemplateData({
-    this.theme,
-    this.title,
-    this.logoLink,
-    this.description,
-    this.links,
+    required this.theme,
+    required this.title,
+    required this.logoLink,
+    required this.description,
+    required this.links,
   });
 }
 
@@ -25,7 +25,7 @@ class LinkData {
   final String url;
   final String title;
 
-  LinkData({this.icon, this.url, this.title});
+  LinkData({required this.icon, required this.url, required this.title});
 
   factory LinkData.github(String url) {
     return LinkData(
@@ -54,15 +54,15 @@ class LinkData {
 
 abstract class Template {
   Widget builder({
-    BuildContext context,
-    TemplateData data,
-    Widget app,
+    required BuildContext context,
+    required TemplateData data,
+    required Widget app,
   });
 
   Widget screenshotBuilder({
-    BuildContext context,
-    TemplateData data,
-    Widget app,
+    required BuildContext context,
+    required TemplateData data,
+    required Widget app,
   }) =>
       builder(
         context: context,

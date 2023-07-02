@@ -1,10 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_showcase/src/frame/frame_theme.dart';
-import 'package:flutter_showcase/src/templates/templates.dart';
-import 'package:flutter_showcase/src/core/theme.dart';
 
 import '../flutter_showcase.dart';
 
@@ -20,20 +14,20 @@ class Showcase extends StatelessWidget {
   final Widget app;
   final String title;
   final String description;
-  final TemplateThemeData theme;
+  final TemplateThemeData? theme;
   final List<LinkData> links;
   final LinkData logoLink;
-  final Template template;
+  final Template? template;
 
   const Showcase({
-    Key key,
-    this.app,
-    this.title,
+    Key? key,
+    required this.app,
+    required this.title,
     this.theme,
-    this.description,
-    this.links,
+    required this.description,
+    required this.links,
     this.template,
-    this.logoLink,
+    required this.logoLink,
   }) : super(key: key);
 
   @override
@@ -72,7 +66,8 @@ class CustomShowcase extends StatelessWidget {
   final Widget app;
   final AppBuilder builder;
 
-  const CustomShowcase({Key key, this.app, this.builder}) : super(key: key);
+  const CustomShowcase({Key? key, required this.app, required this.builder})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +88,8 @@ class CustomShowcase extends StatelessWidget {
 /// It is performed in a standalone widget to rebuild **only** [MediaQuery] and
 /// its dependents when `window` changes, instead of rebuilding the entire widget tree.
 class _MediaQueryFromWindow extends StatefulWidget {
-  const _MediaQueryFromWindow({Key key, this.child}) : super(key: key);
+  const _MediaQueryFromWindow({Key? key, required this.child})
+      : super(key: key);
 
   final Widget child;
 

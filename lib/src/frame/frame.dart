@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_showcase/flutter_showcase.dart';
-import 'package:flutter_showcase/src/frame/frame_theme.dart';
 
 class FrameBuilder extends StatelessWidget {
   final Widget app;
   final TransitionBuilder builder;
   const FrameBuilder({
-    this.app,
-    this.builder,
+    required this.app,
+    required this.builder,
   });
 
   @override
@@ -23,9 +21,10 @@ class FrameBuilder extends StatelessWidget {
 class Frame extends StatelessWidget {
   final Widget app;
 
-  const Frame({Key key, this.app}) : super(key: key);
+  const Frame({Key? key, required this.app}) : super(key: key);
 
-  static TransitionBuilder get builder => (context, app) => Frame(app: app);
+  static TransitionBuilder get builder =>
+      (context, app) => Frame(app: app ?? SizedBox());
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,7 @@ class Frame extends StatelessWidget {
 class _StatusBar extends StatelessWidget {
   final FrameThemeData theme;
 
-  const _StatusBar({Key key, this.theme}) : super(key: key);
+  const _StatusBar({Key? key, required this.theme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

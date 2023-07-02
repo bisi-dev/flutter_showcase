@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_showcase/flutter_showcase.dart';
 import 'package:flutter_showcase/src/frame/frame_theme.dart';
@@ -12,7 +11,7 @@ class TemplateThemeData {
 
   /// Background color of the showcase page
   ///
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Defines the theme of the device frame
   /// that wraps the app
@@ -39,15 +38,15 @@ class TemplateThemeData {
   final IconThemeData buttonIconTheme;
 
   factory TemplateThemeData({
-    Brightness brightness,
-    FlutterLogoColor flutterLogoColor,
-    TextStyle titleTextStyle,
-    TextStyle descriptionTextStyle,
-    Color backgroundColor,
-    ButtonThemeData buttonTheme,
-    FrameThemeData frameTheme,
-    TextStyle buttonTextStyle,
-    IconThemeData buttonIconTheme,
+    Brightness? brightness,
+    FlutterLogoColor? flutterLogoColor,
+    TextStyle? titleTextStyle,
+    TextStyle? descriptionTextStyle,
+    Color? backgroundColor,
+    ButtonThemeData? buttonTheme,
+    FrameThemeData? frameTheme,
+    TextStyle? buttonTextStyle,
+    IconThemeData? buttonIconTheme,
   }) {
     brightness ??= Brightness.light;
     final bool isDark = brightness == Brightness.dark;
@@ -90,24 +89,16 @@ class TemplateThemeData {
   }
 
   TemplateThemeData.raw({
-    this.flutterLogoColor,
-    this.titleTextStyle,
-    this.descriptionTextStyle,
-    this.backgroundColor,
-    this.buttonTheme,
-    this.brightness,
-    this.frameTheme,
-    this.buttonTextStyle,
-    this.buttonIconTheme,
-  })  : assert(flutterLogoColor != null),
-        assert(titleTextStyle != null),
-        assert(descriptionTextStyle != null),
-        assert(backgroundColor != null),
-        assert(buttonTheme != null),
-        assert(brightness != null),
-        assert(buttonTextStyle != null),
-        assert(buttonIconTheme != null),
-        assert(frameTheme != null);
+    required this.flutterLogoColor,
+    required this.titleTextStyle,
+    required this.descriptionTextStyle,
+    required this.backgroundColor,
+    required this.buttonTheme,
+    required this.brightness,
+    required this.frameTheme,
+    required this.buttonTextStyle,
+    required this.buttonIconTheme,
+  });
 
   static TemplateThemeData light() {
     return TemplateThemeData(
@@ -208,6 +199,5 @@ extension FlutterLogoColorImage on FlutterLogoColor {
           package: 'flutter_showcase',
         );
     }
-    return null;
   }
 }

@@ -4,20 +4,20 @@ version: 0.0.7
 homepage: https://github.com/jamesblasco/flutter_showcase
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  url_launcher: ^5.4.2
-  font_awesome_flutter: ^8.8.1
-  fluid_layout: ^0.1.0
-  equatable: ^1.1.1
+  url_launcher: ^6.1.11
+  font_awesome_flutter: ^10.5.0
+  layout: ^1.0.3
+  equatable: ^2.0.5
   dart_style: ^2.0.0
-  analyzer: ^1.5.0
-  _fe_analyzer_shared: ^21.0.0
-  args: ^2.1.0
-  yaml: ^3.0.0
+  analyzer: ^5.10.0
+  _fe_analyzer_shared: ^58.0.0
+  args: ^2.4.0
+  yaml: ^3.1.1
 
 dev_dependencies:
   test: any

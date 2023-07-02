@@ -1,21 +1,21 @@
 import 'dart:math';
 
-import 'package:fluid_layout/fluid_layout.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_showcase/flutter_showcase.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:layout/layout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SimpleTemplate extends Template {
   final bool reverse;
 
-  SimpleTemplate({this.reverse});
+  SimpleTemplate({this.reverse = false});
 
   @override
-  Widget builder({BuildContext context, TemplateData data, Widget app}) {
+  Widget builder(
+      {required BuildContext context,
+      required TemplateData data,
+      required Widget app}) {
     final shouldDisplayTemplate = MediaQuery.of(context).size.width > 600;
     Widget content =
         isScreenshot ? _ScreenshotContent(data: data) : _Content(data: data);
@@ -43,18 +43,16 @@ class SimpleTemplate extends Template {
             ];
       return Scaffold(
         backgroundColor: data.theme.backgroundColor,
-        body: FluidLayout(
-          child: Fluid(
-            child: Builder(
-              builder: (context) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 40),
-                child: Material(
-                  color: Colors.transparent,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: children),
-                ),
+        body: Layout(
+          child: Builder(
+            builder: (context) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Material(
+                color: Colors.transparent,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: children),
               ),
             ),
           ),
@@ -67,7 +65,7 @@ class SimpleTemplate extends Template {
 class _Content extends StatelessWidget {
   final TemplateData data;
 
-  const _Content({Key key, this.data}) : super(key: key);
+  const _Content({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +138,7 @@ class _Content extends StatelessWidget {
 class _ScreenshotContent extends StatelessWidget {
   final TemplateData data;
 
-  const _ScreenshotContent({Key key, this.data}) : super(key: key);
+  const _ScreenshotContent({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -190,17 +188,15 @@ class _Link extends StatelessWidget {
   final LinkData data;
   final TemplateThemeData theme;
 
-  const _Link({Key key, this.data, this.theme}) : super(key: key);
+  const _Link({Key? key, required this.data, required this.theme})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       child: ButtonTheme.fromButtonThemeData(
         data: theme.buttonTheme,
-        child: RaisedButton(
-          elevation: 0,
-          focusElevation: 0,
-          hoverElevation: 0,
+        child: ElevatedButton(
           onPressed: () => {launch(data.url)},
           child: IconTheme(
             data: theme.buttonIconTheme.merge(IconThemeData(size: 20)),
@@ -228,7 +224,7 @@ class _Link extends StatelessWidget {
 class _LogoLink extends StatelessWidget {
   final LinkData data;
 
-  const _LogoLink({Key key, this.data}) : super(key: key);
+  const _LogoLink({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +240,11 @@ class AppWithDrawer extends StatefulWidget {
   final Widget drawer;
   final TemplateThemeData theme;
 
-  const AppWithDrawer({Key key, this.child, this.drawer, this.theme})
+  const AppWithDrawer(
+      {Key? key,
+      required this.child,
+      required this.drawer,
+      required this.theme})
       : super(key: key);
 
   @override
@@ -255,7 +255,7 @@ class _AppWithDrawerState extends State<AppWithDrawer>
     with TickerProviderStateMixin {
   bool showInfoButton = true;
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void initState() {
@@ -297,10 +297,15 @@ class _AppWithDrawerState extends State<AppWithDrawer>
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border(
-                            left: BorderSide(color: theme.titleTextStyle.color),
-                            top: BorderSide(color: theme.titleTextStyle.color),
-                            bottom:
-                                BorderSide(color: theme.titleTextStyle.color)),
+                            left: BorderSide(
+                                color: theme.titleTextStyle.color ??
+                                    const Color(0xFF000000)),
+                            top: BorderSide(
+                                color: theme.titleTextStyle.color ??
+                                    const Color(0xFF000000)),
+                            bottom: BorderSide(
+                                color: theme.titleTextStyle.color ??
+                                    const Color(0xFF000000))),
                         color: theme.backgroundColor,
                         boxShadow: []),
                     padding: EdgeInsets.all(20),
