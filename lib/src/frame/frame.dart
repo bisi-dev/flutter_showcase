@@ -23,8 +23,14 @@ class Frame extends StatelessWidget {
 
   const Frame({Key? key, required this.app}) : super(key: key);
 
-  static TransitionBuilder get builder =>
-      (context, app) => Frame(app: app ?? SizedBox());
+  static TransitionBuilder get builder => (context, app) => Frame(
+        app: app ??
+            Container(
+              child: Center(
+                child: Text('Installing...'),
+              ),
+            ),
+      );
 
   @override
   Widget build(BuildContext context) {
