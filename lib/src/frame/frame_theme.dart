@@ -51,7 +51,11 @@ class DefaultFrameTheme extends InheritedTheme {
     return context.dependOnInheritedWidgetOfExactType<DefaultFrameTheme>() ??
         DefaultFrameTheme(
           data: FrameThemeData(),
-          child: SizedBox(),
+          child: Container(
+            child: Center(
+              child: Text('Installing...'),
+            ),
+          ),
         );
   }
 
